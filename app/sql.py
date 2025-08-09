@@ -4,6 +4,7 @@ import pandas as pd
 from groq import Groq
 from dotenv import load_dotenv
 import re
+from pathlib import Path
 
 load_dotenv()
 
@@ -48,10 +49,11 @@ def generate_sql_query(question):
 
     return chat_completion.choices[0].message.content
 
+dbpath = Path(__file__).parent / "resources/db.sqlite"
 def run_query(ans):
     query = re.search(r"<SQL>(.*?)</SQL>", ans, re.DOTALL).group(1)
     if query.strip().upper().startswith("SELECT"):
-        with sqlite3.connect("resources/db.sqlite") as conn:
+        with sqlite3.connect(dbpath) as conn:
             df = pd.read_sql_query(query, conn)
             return df
 
