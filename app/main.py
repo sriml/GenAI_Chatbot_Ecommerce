@@ -1,3 +1,7 @@
+import sys
+import pysqlite3
+sys.modules["sqlite3"] = pysqlite3
+
 import streamlit as st
 from router import router
 from faq import ingest_faq_data, faq_chain
