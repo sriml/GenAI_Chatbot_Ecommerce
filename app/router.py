@@ -26,7 +26,18 @@ sql = Route(
     score_threshold=0.3
 )
 
-routes = [faq, sql]
+smalltalk = Route(
+    name="smalltalk",
+    utterances=[
+        "How are you?",
+        "What is your name?",
+        "What do you do?",
+        "How is the weather today?",
+    ],
+    score_threshold=0.3
+)
+
+routes = [faq, sql, smalltalk]
 encoder = HuggingFaceEncoder(name="sentence-transformers/all-MiniLM-L6-v2")
 
 router = SemanticRouter(routes=routes, encoder=encoder, auto_sync="local")

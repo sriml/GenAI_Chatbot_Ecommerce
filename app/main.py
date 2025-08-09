@@ -2,6 +2,7 @@ import streamlit as st
 from router import router
 from faq import ingest_faq_data, faq_chain
 from sql import sql_chain
+from smalltalk import smalltalk_chain
 from pathlib import Path
 
 faqs_path = Path(__file__).parent / "resources/faq.csv"
@@ -14,6 +15,8 @@ def ask(query):
         ans = faq_chain(query)
     elif route == 'sql':
         ans = sql_chain(query)
+    elif route == 'smalltalk':
+        ans = smalltalk_chain(query)
     else:
         return f"route {route} not implemented yet."
     print(ans)
